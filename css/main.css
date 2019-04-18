@@ -543,10 +543,10 @@ html,body{height:100%}
 	margin:10px 0 15px;
 	padding:10px 0;
 	width: 100%;
-	height:150px;
+	height:200px;
 }
 
-.user_info_list td{
+.user_info_list li{
 	line-height:30px;
 	text-indent:30px;
 	font-size:14px;

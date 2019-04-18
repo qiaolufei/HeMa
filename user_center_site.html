@@ -63,7 +63,7 @@
 				<div class="site_con">
 					<dl>
 						<dt>当前地址：</dt>
-						<dd>北京市 海淀区 东北旺西路8号中关村软件园 （李思 收） 182****7528</dd>
+						<dd id="show_add">北京市 海淀区 东北旺西路8号中关村软件园 （李思 收） 182****7528</dd>
 						<input type="button" class="edit-btu" value="编辑地址" id="EditAddress" />
 					</dl>
 				</div>
@@ -105,6 +105,10 @@
 
 	</body>
 	<script type="text/javascript">
+		//取出地址信息
+		var tmp = localStorage.getItem("currUser");
+		var user = JSON.parse(tmp);
+		$('#show_add').text(user.address+user.name+user.phone);
 		//编辑地址窗口
 		$(document).ready(function() {
 			$('#EditAddress').click(function() {

@@ -12,16 +12,8 @@
 		<div class="header">
 			<div class="welcome fl">欢迎来到喝吗鲜生!</div>
 			<div class="fr">
-				<div class="login_btn fl" id="login_row">
-					<a href="login.html">登录</a>
-					<span>|</span>
-					<a href="register.html">注册</a>
-					<span>|</span>
-				</div>
 				<div class="user_link fl" id="link_row">
 					<a href="index.html">首页</a>
-					<span>|</span>
-					<a href="user_center_info.html" id="yonghuzhongxin">用户中心</a>
 					<span>|</span>
 					<a href="cart.html">我的购物车</a>
 					<span>|</span>
@@ -45,76 +37,27 @@
 			<h3>用户中心</h3>
 			<ul>
 				<li><a href="user_center_info.html" class="active">· 个人信息</a></li>
-				<li><a href="user_center_order.html">· 全部订单</a></li>
-				<li><a href="user_center_site.html">· 收货地址</a></li>
+				<li><a href="#">· 修改</a></li>
 			</ul>
 		</div>
 		<div class="right_content clearfix">
 				<div class="info_con clearfix">
 				<h3 class="common_title2">基本信息</h3>
-						<table class="user_info_list">
-							<tr>
-								<td id="headpic"><img style="width:150px;height:150px;border-radius:75px;overflow: hidden;" src="images/goods.jpg"></td>
-								<td id="nick"><span>昵称：</span><a>大石头</a></td>
-								<td id="account"><span>账号：</span><a>18210569700</a></td>
-							</tr>	
-						</table>
+						<ul class="user_info_list">
+							<li id="headpic"><span>头像：</span><img style="width:80px;height:80px;border-radius:40px;overflow: hidden;" src="images/goods.jpg"></li>
+							<li id="nick"><span>昵称：</span><a>大石头</a></li>
+							<li id="account"><span>账号：</span><a>18210569700</a></li>
+						</ul>
 				</div>
 				
-				<h3 class="common_title2">商家推荐</h3>
-				<div class="has_view_list">
-					<ul class="goods_type_list clearfix">
-				<li>
-					<a href="detail.html"><img src="images/goods/goods003.jpg"></a>
-					<h4><a href="detail.html">大兴大棚草莓</a></h4>
-					<div class="operate">
-						<span class="prize">￥16.80</span>
-						<span class="unit">16.80/500g</span>
-						<a href="#" class="add_goods" title="加入购物车"></a>
-					</div>
-				</li>
-
-				<li>
-					<a href="#"><img src="images/goods/goods004.jpg"></a>
-					<h4><a href="#">吐鲁番梨光杏</a></h4>
-					<div class="operate">
-						<span class="prize">￥5.50</span>
-						<span class="unit">5.50/500g</span>
-						<a href="#" class="add_goods" title="加入购物车"></a>
-					</div>
-				</li>
-
-				<li>
-					<a href="#"><img src="images/goods/goods005.jpg"></a>
-					<h4><a href="#">黄肉桃</a></h4>
-					<div class="operate">
-						<span class="prize">￥10.00</span>
-						<span class="unit">10.00/500g</span>
-						<a href="#" class="add_goods" title="加入购物车"></a>
-					</div>
-				</li>
-
-				<li>
-					<a href="#"><img src="images/goods/goods006.jpg"></a>
-					<h4><a href="#">进口西梅</a></h4>
-					<div class="operate">
-						<span class="prize">￥28.80</span>
-						<span class="unit">28.8/500g</span>
-						<a href="#" class="add_goods" title="加入购物车"></a>
-					</div>
-				</li>
-
-				<li>
-					<a href="#"><img src="images/goods/goods007.jpg"></a>
-					<h4><a href="#">香梨</a></h4>
-					<div class="operate">
-						<span class="prize">￥6.45</span>
-						<span class="unit">6.45/500g</span>
-						<a href="#" class="add_goods" title="加入购物车"></a>
-					</div>
-				</li>
-			</ul>
-		</div>
+				<div class="info_con clearfix">
+				<h3 class="common_title2">收货地址</h3>
+						<ul class="user_info_list">
+							<li id="name"><span>姓名：</span><a>杨小凡</a></li>
+							<li id="phone"><span>电话：</span><a>18540279973</a></li>
+							<li id="addrs"><span>收货地址：</span><a>A2 111</a></li>
+						</ul>
+				</div>
 		</div>
 	</div>
 
@@ -149,11 +92,20 @@
 				success:function(res){
 					if(res.data != null){
 						var user=res.data;
+						var len=user.username.length;
 						$('.header_con .header .fr #login_row').hide();
 						$('.header_con .header .fr #link_row #yonghuzhongxin').html(user.username.substring(0,3)+"***"+user.username.substring(len-3,len));
+						
+						//基本信息
 						$('#headpic img').attr('src',user.headpic);
 						$('#nick a').text(user.nickname);
 						$('#account a').text(user.username);
+						
+						//收货地址
+						$('#name a').text(user.name);
+						$('#phone a').text(user.phone);
+						$('#addrs a').text(user.address);
+						
 					}
 				}
 		  });
