@@ -41,17 +41,39 @@
 							<li id="headpic"><span>头像：</span><img style="width:80px;height:80px;border-radius:40px;overflow: hidden;" src="images/goods.jpg"></li>
 							<li id="nick"><span>昵称：</span><a>大石头</a></li>
 							<li id="account"><span>账号：</span><a>18210569700</a></li>
-						</ul>
+							<li style="margin: 10px 0 0 80%;"><input type="button" class="edit-btu1" value="编辑" id="EditInfo" />	</li>
+						</ul>				
 				</div>
-				
+				<!--编辑信息窗口-->
+				<div id="editInfo" style="display: none; margin:auto;top: 180px;left: 50%; width: 200px; height: 80px; background-color: #D0EEFF;z-index: 2;position: fixed;">
+					<ul>
+						<br/>
+						<li><span style="font-size: 13px;">昵称：</span><input type="text" id="new_nick" placeholder="喝吗鲜生"/></li>
+						
+						<li style="margin:5px 0 0 70px;"><input type="button" class="submit1" id="submitnewId" value="提交"/></li>
+					</ul>
+				</div>	
 				<div class="info_con clearfix">
 				<h3 class="common_title2">收货地址</h3>
 						<ul class="user_info_list">
 							<li id="name"><span>姓名：</span><a>杨小凡</a></li>
 							<li id="phone"><span>电话：</span><a>18540279973</a></li>
 							<li id="addrs"><span>收货地址：</span><a>A2 111</a></li>
-						</ul>
+							<li style="margin: 10px 0 0 80%;"><input type="button" class="edit-btu2" value="编辑" id="EditAddress" /></li>
+						</ul>		
 				</div>
+				<!--编辑收货地址窗口-->
+				<div id="editAddress" style="display: none;margin:auto;bottom: 180px;left: 50%;width: 300px; height: 160px; background-color: #D0EEFF;z-index: 2;position:fixed;">
+					<ul>
+						<br/>
+						<li><span style="font-size: 13px;">&nbsp&nbsp姓名:&nbsp</span><input type="text" id="new_name" placeholder="杨小凡"/></li>
+						<br/>
+						<li><span style="font-size: 13px;">&nbsp&nbsp电话:&nbsp</span><input type="text" id="new_phone" placeholder="18540279973"/></li>
+						<br/>
+						<li><span style="font-size: 13px;">&nbsp&nbsp收货地址：</span><input type="text" id="new_address" placeholder="A2 111"/></li>
+						<li style="margin:10px 0 0 120px;"><input type="button" class="submit2" id="submitnewAd" value="提交"/></li>
+					</ul>
+				</div>	
 		</div>
 	</div>
 
@@ -104,8 +126,115 @@
 				}
 		  });
 		})
+		//编辑信息窗口
+		$(document).ready(function() {
+			$('#EditInfo').click(function() {
+				$('#editInfo').toggle();
+			});
+		});
+		//编辑地址窗口
+		$(document).ready(function() {
+			$('#EditAddress').click(function() {
+				$('#editAddress').toggle();
+			});
+		});
 		
+		
+		//点击提交修改信息后隐藏窗口
+		$(document).ready(function() {
+			$('#submitnewId').click(function() {
+				if ($('#new_nick').val()=="") {
+					alert("请输入昵称");
+					return;
+				}
+				$.ajax({
+					type:"POST",
+					url:"http://localhost:8080/updateNick",
+					data:JSON.stringify({
+						'username':$('#account a').text(),
+						'nickname':$('#new_nick').val()
+					}),
+					dataType:'json',
+					async:true,
+					contentType:"application/json; charset=utf-8",
+					xhrFields: {
+						withCredentials: true
+					},
+					success:function(res){
+						if(res.data != 14){
+							var user_nick=res.data;
+							$('#nick a').text(user_nick);
+							
+							/*//收货地址
+							$('#name a').text(user.name);
+							$('#phone a').text(user.phone);
+							$('#addrs a').text(user.address);*/
+						}else{
+							alert("修改失败!");
+						}
+					}
+				});
+				$('#editInfo').toggle();
+			});
+		});
+		$(document).ready(function() {
+			$('#submitnewAd').click(function() {
+				if ($('#new_address').val()=="" || $('#new_name').val()=="" || $('#new_phone').val()=="") {
+					alert("请将收货信息补充完整 !");
+					return;
+				}
+				$.ajax({
+					type:"POST",
+					url:"http://localhost:8080/updateAddress",
+					data:JSON.stringify({
+						'username':$('#account a').text(),
+						'address':$('#new_address').val(),
+						'name':$('#new_name').val(),
+						'phone':$('#new_phone').val()
+					}),
+					dataType:'json',
+					async:true,
+					contentType:"application/json; charset=utf-8",
+					xhrFields: {
+						withCredentials: true
+					},
+					success:function(res){
+						if(res.data != 14){
+							var user=res.data;
+							
+							//收货地址
+							$('#name a').text(user.name);
+							$('#phone a').text(user.phone);
+							$('#addrs a').text(user.address);
+						}else{
+							alert("修改失败!");
+						}
+					}
+				});
+				$('#editAddress').toggle();
+			});
+		});
 	</script>
-	
+	<style>
+		.edit-btu1 ,.edit-btu2,.submit1,.submit2{
+			position: relative;
+			display: inline-block;
+			background: #D0EEFF;
+			border: 1px solid #99D3F5;
+			border-radius: 4px;
+			padding: 4px 12px;
+			overflow: hidden;
+			color: #1E88C7;
+			text-decoration: none;
+			text-indent: 0;
+			line-height: 20px;
+		}
+		.edit-btu1:hover ,.edit-btu2:hover,.submit1:hover,.submit2:hover{
+    		background: #AADFFD;
+    		border-color: #78C3F3;
+    		color: #004974;
+    		text-decoration: none;
+		}
+	</style>
 </body>
 </html>

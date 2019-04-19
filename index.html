@@ -33,7 +33,7 @@
 	</div>
 
 	<div class="search_bar clearfix">
-		<a href="index.html" class="logo fl"><img src="images/logo.png"></a>
+		<a href="index.html" class="logo fl"><img src="images/logo.jpg"></a>
 		<div class="search_con fl">
 			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
 			<input type="button" class="input_btn fr" name="" value="搜索">
@@ -50,9 +50,7 @@
 			<ul class="navlist fl">
 				<li><a href="">首页</a></li>
 				<li class="interval">|</li>
-				<li><a href="">手机生鲜</a></li>
-				<li class="interval">|</li>
-				<li><a href="">抽奖</a></li>
+				<li><a href="">DIY水果捞</a></li>
 			</ul>
 		</div>
 	</div>
@@ -60,11 +58,11 @@
 	<div class="center_con clearfix">
 		<ul class="subnav fl">
 			<li><a href="#model01" class="fruit">新鲜水果</a></li>
-			<li><a href="#model02" class="seafood">海鲜水产</a></li>
+			<!--<li><a href="#model02" class="seafood">海鲜水产</a></li>
 			<li><a href="#model03" class="meet">猪牛羊肉</a></li>
 			<li><a href="#model04" class="egg">禽类蛋品</a></li>
 			<li><a href="#model05" class="vegetables">新鲜蔬菜</a></li>
-			<li><a href="#model06" class="ice">速冻食品</a></li>
+			<li><a href="#model06" class="ice">速冻食品</a></li>-->
 		</ul>
 		<div class="slide fl">
 			<ul class="slide_pics">
@@ -99,13 +97,13 @@
 			<div class="goods_banner fl"><img src="images/banner01.jpg"></div>
 			<ul class="goods_list fl" id="fruit">
 				<li>
-					<h4><a href="#">草莓</a></h4>
-					<a href="#"><img src="images/goods/goods003.jpg"></a>
+					<h4><a>草莓</a></h4>
+					<a><img src="images/goods/goods003.jpg"></a>
 					<div class="prize">¥ 30.00</div>
 				</li>
 				<li>
-					<h4><a href="#">葡萄</a></h4>
-					<a href="#"><img src="images/goods/goods002.jpg"></a>
+					<h4><a>葡萄</a></h4>
+					<a><img src="images/goods/goods002.jpg"></a>
 					<div class="prize">¥ 5.50</div>
 				</li>
 			</ul>
@@ -159,7 +157,7 @@
                			
                			//添加<h4><a href="#">柠檬</a></h4>
                			var a = document.createElement("a");
-               			a.href = "#";
+               			//a.href = "#";
                			a.text = item[i].title;
   
                			var h4 = document.createElement("h4");
@@ -167,7 +165,7 @@
                			
                			//添加<a href="#"><img src="images/goods/goods012.jpg"></a>
                			var a1 = document.createElement("a");
-               			a1.href = "#";
+               			//a1.href = "#";
                			var img = document.createElement("img");
                			img.src = item[i].image;
                			a1.appendChild(img);
