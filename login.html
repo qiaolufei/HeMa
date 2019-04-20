@@ -2,10 +2,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-	<title>天天生鲜-登录</title>
+	<title>喝吗鲜生-登录</title>
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<script src="js/jquery-2.1.1.js" type="text/javascript" charset="utf-8"></script>
+	<script src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+            var rem = $.cookie('remember');
+            if(rem){
+                $("#remember").prop("checked",true);
+                $("#username").val($.cookie("username"));
+                $("#password").val($.cookie("password"));
+            }
+        });
+	</script>
 </head>
 <body>
 	<div class="login_top clearfix">
@@ -28,7 +39,7 @@
 						<input type="password" name="pwd" id="passwd" class="pass_input" placeholder="请输入密码">
 						<div class="pwd_error">输入错误</div>
 						<div class="more_input clearfix">
-							<input type="checkbox" name="">
+							<input type="checkbox" name="" id="remember">
 							<label>记住用户名</label>
 							<a href="#">忘记密码</a>
 						</div>
@@ -59,6 +70,7 @@
 	
 	//登录
 	$(function(){
+		//按钮事件登录
 		$("#login").click(function(){
 			$.ajax({
 	        type: "POST",
@@ -102,7 +114,33 @@
 	        },
     	});
 		})
-	})
+	})	
+	//回车提交登录
+	$("body").keydown(function() {
+	    if (event.keyCode == "13") {//keyCode=13是回车键
+	        $('#login').click();
+	    }
+	});  
+	
+	/*
+	 * 实现记住用户名的功能
+	 */
+	//保存到cookie
+    function save_cookies(){
+        if($("#remember").prop("checked")){
+            var username = $("#account").val();
+            var password = $("#passwd").val();
+
+            $.cookie("remember","true",{expires:7});
+            $.cookie("username",username,{expires:7 });
+            $.cookie("password",password,{expires:7 });
+        }else{
+            $.cookie("remember","false",{expires:-1});
+            $.cookie("username","",{ expires:-1 });
+            $.cookie("password","",{ expires:-1 });
+        }
+    };
+	
 	
 </script>
 

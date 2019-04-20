@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-	<title>天天生鲜-用户中心</title>
+	<title>喝吗鲜生-用户中心</title>
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<script src="js/jquery-2.1.1.js" type="text/javascript" charset="utf-8"></script>
@@ -32,6 +32,7 @@
 			<ul>
 				<li><a href="user_center_info.html" class="active">· 个人信息</a></li>
 				<li><a href="user_center_order.html">· 全部订单</a></li>
+				<li><a href="" id="logout">· 退出登录</a></li>
 			</ul>
 		</div>
 		<div class="right_content clearfix">
@@ -96,7 +97,7 @@
 	</div>
 	
 	<script type="text/javascript">
-		
+		var curruser;
 		$(function(){
 			$.ajax({
 				type:"get",
@@ -108,25 +109,40 @@
 				},
 				rossDomain: true,
 				success:function(res){
+					curruser=res.data; //获取当前用户对象
 					if(res.data != null){
-						var user=res.data;
-						var len=user.username.length;
-						$('.header_con .header .fr #login_row').hide();
-						$('.header_con .header .fr #link_row #yonghuzhongxin').html(user.username.substring(0,3)+"***"+user.username.substring(len-3,len));
-						
-						//基本信息
-						$('#headpic img').attr('src',user.headpic);
-						$('#nick a').text(user.nickname);
-						$('#account a').text(user.username);
-						
-						//收货地址
-						$('#name a').text(user.name);
-						$('#phone a').text(user.phone);
-						$('#addrs a').text(user.address);
-						
+						$.ajax({
+								type:"post",
+								url:"http://localhost:8080/selectUser/"+curruser.username,
+								dataType:'json',
+								async:true,
+								xhrFields: {
+									withCredentials: true
+								},
+								rossDomain: true,
+								success:function(res){
+									if(res.data != null){
+										var user=res.data;
+										var len=user.username.length;
+										$('.header_con .header .fr #login_row').hide();
+										$('.header_con .header .fr #link_row #yonghuzhongxin').html(user.username.substring(0,3)+"***"+user.username.substring(len-3,len));
+										
+										//基本信息
+										$('#headpic img').attr('src',user.headpic);
+										$('#nick a').text(user.nickname);
+										$('#account a').text(user.username);
+										
+										//收货地址
+										$('#name a').text(user.name);
+										$('#phone a').text(user.phone);
+										$('#addrs a').text(user.address);
+										
+									}
+								}
+						 });
 					}
 				}
-		  });
+		    });
 		})
 		//编辑信息窗口
 		$(document).ready(function() {
@@ -176,13 +192,8 @@
 					},
 					success:function(res){
 						if(res.data != 14){
-							var user_nick=res.data;
-							$('#nick a').text(user_nick);
-							
-							/*//收货地址
-							$('#name a').text(user.name);
-							$('#phone a').text(user.phone);
-							$('#addrs a').text(user.address);*/
+							var user=res.data;
+							$('#nick a').text(user.nickname);
 						}else{
 							alert("修改失败!");
 						}
@@ -228,6 +239,31 @@
 				$('#editAddress').toggle();
 			});
 		});
+		
+		//注销
+		$(function(){
+			$('#logout').click(function(){
+				alert('确认注销');
+				$.ajax({
+						type:"get",
+						url:"http://localhost:8080/logOut",
+						dataType:'json',
+						async:true,
+						xhrFields: {
+							withCredentials: true
+						},
+						rossDomain: true,
+						success:function(res){
+							if(res.status === 200){
+								alert("注销成功");
+								location.href = "index.html";
+							}else{
+								alert("注销失败");
+							}
+						}
+				  });
+			});
+		})
 	</script>
 	<style>
 		.edit-btu1 ,.edit-btu2,.submit1,.submit2{

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-	<title>天天生鲜-购物车</title>
+	<title>喝吗鲜生-购物车</title>
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<script src="js/jquery-2.1.1.js" type="text/javascript" charset="utf-8"></script>
@@ -12,7 +12,7 @@
 <body>
 	<div class="header_con">
 		<div class="header">
-			<div class="welcome fl">欢迎来到天天生鲜!</div>
+			<div class="welcome fl">欢迎来到喝吗鲜生!</div>
 			<div class="fr">
 				<div class="user_link fl">
 					<a href="index.html">首页</a>
@@ -26,12 +26,12 @@
 	<div class="search_bar clearfix">
 		<a href="index.html" class="logo fl"><img src="images/logo.png"></a>
 		<div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;购物车</div>
-		<div class="search_con fr">
+		<!--<div class="search_con fr">
 			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
 			<input type="button" class="input_btn fr" name="" value="搜索">
-		</div>		
+		</div>-->		
 	</div>
-	
+
 	<ul class="cart_list_th clearfix" id="cart">
 		<li class="col01">商品名称</li>
 		<li class="col02">商品单位</li>
@@ -78,10 +78,9 @@
 	<ul class="settlements">
 		<li class="col01"></li>
 		<li class="col02"></li>
-		<li class="col03">合计(不含运费)：<span>¥</span><em id="total">42.60</em><br>共计<b id="num">2</b>件商品</li>
+		<li class="col03">合计(不含运费)：<span>¥</span><em id="total">0.00</em><br>共计<b id="num">0</b>件商品</li>
 		<li class="col04">
-			<a  href="#" id="settlement" onclick="windup(this)">去结算</a>
-			<!--<input type="button" onclick="windup()" value="去结算"/>-->
+			<a  href="#" id="settlement">去结算</a>
 		</li>
 	</ul>
 	<!--结算窗口-->
@@ -146,66 +145,48 @@
 		}
 		#place_order{
 			display: none;
-			border: 2px solid grey;
+			border: 0.5px solid #EEEEEE;
 			border-radius: 5px;
-			width: 300px;
+			width: 375px;
 			height: 500px;
 			z-index: 3;
-			background: whitesmoke;
+			background: white;
 			position: fixed;
-			top:20%;
-			left:40%;
+			top:10%;
+			left:37%;
 		}
 		#place_order span{
-			font-size: 15px;
+			font-size: 10px;
 		}
 		#place_order img{
 			width: 200px;
 			height: 200px;
-			margin: 10px 0 0 50px;
 		}
 		#user_name,#user_phone,#user_place,#money{
 			border: none;
-			background-color: whitesmoke;
-			font-size: 20px;
+			background-color: white;
+			font-size: 15px;
 		}
 		#closePlace_order{
-				margin: 1px 0 0 260px;
-				font-size: 40px;
-				width: 40px;
+				margin:5px 5px 5px 325px;
+				font-size: 20px;
+				width: 20px;
 				position: relative;
 				display: inline-block;
-				background: ghostwhite;
-				border: 1px solid gainsboro;
+				background: white;
+				border: 0px;
 				border-radius: 5px;
 				overflow: hidden;
-				color: black;
+				color: block;
 		}
 		#closePlace_order:hover{
 			background-color:#C6C6C5;;
 		}
+
 		
 	</style>
 	<script type="text/javascript">
-		//结算窗口
-			$(document).ready(function() {
-				$('#settlement').click(function() {
-					$('#place_order').toggle();
-					$('#shadow').toggle();
-					//信息和数值需要获取后台数据
-					document.getElementById("user_name").value="杨小凡";
-					document.getElementById("user_phone").value="18540279973";
-					document.getElementById("user_place").value="A2 111";
-					document.getElementById("money").value= "¥42.60";
-				});
-			});
-		//关闭结算窗口
-			$(document).ready(function() {
-				$('#closePlace_order').click(function() {
-					$('#place_order').toggle();
-					$('#shadow').toggle();
-				});
-			});
+		
 	</script>
 </body>
 </html>

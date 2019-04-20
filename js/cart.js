@@ -1,6 +1,11 @@
+/*********************************************\
+ * 					定义全局变量                             *
+\*********************************************/
+//当前用户
+var user;
+
 window.onload = function(){
 	
-	var user
 	//取出当前用户
 	$.ajax({
 		type:"get",
@@ -26,13 +31,16 @@ window.onload = function(){
 						} else{
 							//获取购物车记录成功
 							var cart_item = res.data.data;
-							//alert(cart_item.length);
+					
+							if(cart_item.length === 0){
+								alert("购物车空空如也 ！");
+							}
 							for (var i = 0; i < cart_item.length ; i++) {
 								var newul = document.createElement("div");
 							    newul.innerHTML = '<ul class="cart_list_td clearfix">'+
 									'<li class="col01"></li>'+
 									'<li class="col02"><img src="" class="item_img"></li>'+
-									'<li class="col03">'+ cart_item[i].title +'<br><em>'+ cart_item[i].price/100.0 +'元/500g</em></li>'+
+									'<li class="col03"><a>'+ cart_item[i].title +'</a><br><em>'+ cart_item[i].price/100.0 +'元/500g</em></li>'+
 									'<li class="col04">500g</li>'+
 									'<li class="col05">'+ cart_item[i].price/100.0 +'元</li>'+
 									'<li class="col06">'+
@@ -98,8 +106,33 @@ function decrease(btn){
 function drop(btn){
 	var item = btn.parentNode.parentNode.parentNode;
 	var cart = document.getElementById("cart");
-	//发请求，从购物车移除该记录
 	
+	//*******发请求，从购物车移除该记录*****
+	
+	//获取当前用户、要删除的商品名
+	var curr_user = user.username;
+	var del_item_title = btn.parentNode.parentNode.getElementsByTagName("li")[2].getElementsByTagName("a")[0].innerHTML;
+	$.ajax({
+		type:"post",
+		url:"http://localhost:8080/cart/deleteCart",
+		data:JSON.stringify({
+			'username':curr_user,
+			'title':del_item_title
+		}),
+		async:true,
+		dataType:'json',
+		contentType:"application/json; charset=utf-8",
+		xhrFields:{withCredentials:true},
+		success:function(res){
+			if (res.data === 13) {
+				console.log("删除成功");
+			} else{
+				console.log("删除失败");
+			}
+		}
+	});
+	
+	//页面移除
 	cart.removeChild(item);
 	sum();
 }
@@ -120,3 +153,45 @@ function sum() {
 	var num = document.getElementById("num");
 	num.innerHTML = cart_ul.length;
 }
+
+//结算窗口
+	$(document).ready(function() {
+		$('#settlement').click(function() {
+			if (parseInt(document.getElementById("total").innerHTML) === 0) {
+				alert("没有可支付商品");
+				return;
+			}
+			//信息和数值需要获取后台数据
+			$.ajax({
+				type:"get",
+				url:"http://localhost:8080/selectUser/"+user.username,
+				dataType:'json',
+				async:true,
+				xhrFields: {
+					withCredentials: true
+				},
+				rossDomain: true,
+				success:function(res){
+					if(res.data != null){
+						var user=res.data;
+						document.getElementById("user_name").value=user.name;
+						document.getElementById("user_phone").value=user.phone;
+						document.getElementById("user_place").value=user.address;
+						document.getElementById("money").value= document.getElementById("total").innerHTML;						
+					}else{
+						alert("结算失败 !");
+					}
+				}
+		    });
+			$('#place_order').toggle();
+			$('#shadow').toggle();
+			
+		});
+	});
+//关闭结算窗口
+	$(document).ready(function() {
+		$('#closePlace_order').click(function() {
+			$('#place_order').toggle();
+			$('#shadow').toggle();
+		});
+	});
