@@ -32,7 +32,18 @@
 			<ul>
 				<li><a href="user_center_info.html" class="active">· 个人信息</a></li>
 				<li><a href="user_center_order.html">· 全部订单</a></li>
-				<li><a href="" id="logout">· 退出登录</a></li>
+				<li><a id="logout">· 退出登录</a></li>
+				<!--注销窗口-->
+				<div id="logout_window" style="display: none; margin:auto;top: 25%;left: 45%; width: 300px; height: 250px; background-color: white;z-index: 2;position: fixed;border:1px solid #e0e0e0; border-radius: 8px;">
+					<ul style="margin: 10px;">
+						<li><span style="font-size: 14px;">北极星工作室提醒您，是否注销</span></li>
+						<li style="text-align: center;font-size: 14px;">
+							<input type="button" class="submit1" id="logout_yes" value="确认" style="width: 80px;height: 20px;background: white;border: 0px;outline: none;"/>
+							<input type="button" class="submit1" id="logout_cancel" value="取消" style="width: 80px;height: 20px;background: white;border: 0px;outline: none;"/>
+						</li>
+						
+					</ul>
+				</div>
 			</ul>
 		</div>
 		<div class="right_content clearfix">
@@ -42,17 +53,17 @@
 							<li id="headpic"><span>头像：</span><img style="width:80px;height:80px;border-radius:40px;overflow: hidden;" src="images/goods.jpg"></li>
 							<li id="nick"><span>昵称：</span><a>大石头</a></li>
 							<li id="account"><span>账号：</span><a>18210569700</a></li>
-							<li style="margin: 10px 0 0 80%;"><input type="button" class="edit-btu1" value="编辑" id="EditInfo" />	</li>
+							<li style="margin: 10px 0 0 80%;"><input type="button" class="edit-btu1" value="编辑" id="EditInfo" style="width: 80px;height: 20px;background: #f9f9f9;border: 0px;outline: none;"/>	</li>
 						</ul>				
 				</div>
 				<!--编辑信息窗口-->
-				<div id="editInfo" style="display: none; margin:auto;top: 50%;left: 50%; width: 200px; height: 80px; background-color: #D0EEFF;z-index: 2;position: fixed;">
-					<ul>
-						<li><input type="button" id="closeEditInfo" value="×" /></li>
+				<div id="editInfo" style="display: none; margin:auto;top: 25%;left: 45%; width: 300px; height: 250px; background-color: white;z-index: 2;position: fixed;border:1px solid #e0e0e0; border-radius: 8px;">
+					<ul style="margin: 10px;">
+						<li style="text-align: right;"><input type="button" id="closeEditInfo" value="X" style="width: 30px;height: 20px;background: white;border: 0px;"/></li>
 						<br/>
-						<li><span style="font-size: 13px;">昵称：</span><input type="text" id="new_nick" placeholder="喝吗鲜生"/></li>
-						
-						<li style="margin:5px 0 0 70px;"><input type="button" class="submit1" id="submitnewId" value="提交"/></li>
+						<li><span style="font-size: 14px;"></span><input type="text" id="new_nick" placeholder=" 昵称" style="width: 100%;height:30px;outline: none;border:0.5px solid #e0e0e0;background: #F8F8F8;"/></li>
+						<br/>
+						<li style="text-align: center;font-size: 14px;"><input type="button" class="submit1" id="submitnewId" value="提交" style="width: 80px;height: 20px;background: white;border: 0px;outline: none;"/></li>
 					</ul>
 				</div>	
 				<div class="info_con clearfix">
@@ -61,20 +72,21 @@
 							<li id="name"><span>姓名：</span><a>杨小凡</a></li>
 							<li id="phone"><span>电话：</span><a>18540279973</a></li>
 							<li id="addrs"><span>收货地址：</span><a>A2 111</a></li>
-							<li style="margin: 10px 0 0 80%;"><input type="button" class="edit-btu2" value="编辑" id="EditAddress" /></li>
+							<li style="margin: 10px 0 0 80%;"><input type="button" class="edit-btu2" value="修改" id="EditAddress" style="width: 80px;height: 20px;background: #f9f9f9;border: 0px;outline: none;"/></li>
 						</ul>		
 				</div>
 				<!--编辑收货地址窗口-->
-				<div id="editAddress" style="display: none;margin:auto;top: 50%;left: 50%;width: 300px; height: 160px; background-color: #D0EEFF;z-index: 2;position:fixed;">
-					<ul>
-						<li><input type="button" id="closeEditAddress" value="×" /></li>
+				<div id="editAddress" style="display: none;margin:auto;top: 25%;left: 45%;width: 300px; height: 250px; background-color: white;z-index: 2;position:fixed;border:1px solid #e0e0e0; border-radius: 8px ;">
+					<ul style="margin: 10px;">
+						<li style="text-align: right;"><input type="button" id="closeEditAddress" value="X" style="width: 30px;height: 20px;background: white;border: 0px;"/></li>
 						<br/>
-						<li><span style="font-size: 13px;">&nbsp&nbsp姓名:&nbsp</span><input type="text" id="new_name" placeholder="杨小凡"/></li>
+						<li><span style="font-size: 14px;"/><input type="text" id="new_name" placeholder=" 收货人姓名" style="width: 100%;height:30px;outline: none;border:0.5px solid #e0e0e0;background: #F8F8F8;"/></li>
 						<br/>
-						<li><span style="font-size: 13px;">&nbsp&nbsp电话:&nbsp</span><input type="text" id="new_phone" placeholder="18540279973"/></li>
+						<li><span style="font-size: 14px;"/><input type="text" id="new_phone" placeholder=" 电话" style="width: 100%;height:30px;outline: none;border:0.5px solid #e0e0e0;background: #F8F8F8;"/></li>
 						<br/>
-						<li><span style="font-size: 13px;">&nbsp&nbsp收货地址：</span><input type="text" id="new_address" placeholder="A2 111"/></li>
-						<li style="margin:10px 0 0 120px;"><input type="button" class="submit2" id="submitnewAd" value="提交"/></li>
+						<li><span style="font-size: 14px;"/></span><input type="text" id="new_address" placeholder=" 收货地址" style="width: 100%;height:30px;outline: none;border:0.5px solid #e0e0e0;background: #F8F8F8;"/></li>
+						<br/>
+						<li style="text-align: center;font-size: 14px;"><input type="button" class="submit2" id="submitnewAd" value="提交" style="width: 80px;height: 20px;background: white;border: 0px;outline: none;"/></li>
 					</ul>
 				</div>	
 		</div>
@@ -154,6 +166,13 @@
 		$(document).ready(function() {
 			$('#EditAddress').click(function() {
 				$('#editAddress').toggle();
+			});
+		});
+		//注销窗口
+		$(document).ready(function() {
+			$('#logout').click(function() {
+				//$(this).setAttribute("class","active");
+				$('#logout_window').toggle();
 			});
 		});
 		
@@ -240,30 +259,38 @@
 			});
 		});
 		
-		//注销
-		$(function(){
-			$('#logout').click(function(){
-				alert('确认注销');
+		//确认注销
+		$(document).ready(function(){
+			$('#logout_yes').click(function(){
 				$.ajax({
-						type:"get",
-						url:"http://localhost:8080/logOut",
-						dataType:'json',
-						async:true,
-						xhrFields: {
-							withCredentials: true
-						},
-						rossDomain: true,
-						success:function(res){
-							if(res.status === 200){
-								alert("注销成功");
-								location.href = "index.html";
-							}else{
-								alert("注销失败");
-							}
+					type:"get",
+					url:"http://localhost:8080/logOut",
+					dataType:'json',
+					async:true,
+					xhrFields: {
+						withCredentials: true
+					},
+					rossDomain: true,
+					success:function(res){
+						if(res.status === 200){
+							alert("注销成功");
+							location.href = "index.html";
+						}else{
+							alert("注销失败");
 						}
-				  });
+					}
+			    });
+			    $('#logout_window').toggle();
 			});
-		})
+		});
+		
+		//取消注销
+		$(document).ready(function(){
+			$('#logout_cancel').click(function(){
+			    $('#logout_window').toggle();
+			});
+		});
+	
 	</script>
 	<style>
 		.edit-btu1 ,.edit-btu2,.submit1,.submit2{
