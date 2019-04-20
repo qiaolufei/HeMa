@@ -45,8 +45,9 @@
 						</ul>				
 				</div>
 				<!--编辑信息窗口-->
-				<div id="editInfo" style="display: none; margin:auto;top: 180px;left: 50%; width: 200px; height: 80px; background-color: #D0EEFF;z-index: 2;position: fixed;">
+				<div id="editInfo" style="display: none; margin:auto;top: 50%;left: 50%; width: 200px; height: 80px; background-color: #D0EEFF;z-index: 2;position: fixed;">
 					<ul>
+						<li><input type="button" id="closeEditInfo" value="×" /></li>
 						<br/>
 						<li><span style="font-size: 13px;">昵称：</span><input type="text" id="new_nick" placeholder="喝吗鲜生"/></li>
 						
@@ -63,8 +64,9 @@
 						</ul>		
 				</div>
 				<!--编辑收货地址窗口-->
-				<div id="editAddress" style="display: none;margin:auto;bottom: 180px;left: 50%;width: 300px; height: 160px; background-color: #D0EEFF;z-index: 2;position:fixed;">
+				<div id="editAddress" style="display: none;margin:auto;top: 50%;left: 50%;width: 300px; height: 160px; background-color: #D0EEFF;z-index: 2;position:fixed;">
 					<ul>
+						<li><input type="button" id="closeEditAddress" value="×" /></li>
 						<br/>
 						<li><span style="font-size: 13px;">&nbsp&nbsp姓名:&nbsp</span><input type="text" id="new_name" placeholder="杨小凡"/></li>
 						<br/>
@@ -139,6 +141,18 @@
 			});
 		});
 		
+		//关闭编辑信息窗口
+		$(document).ready(function() {
+			$('#closeEditInfo').click(function() {
+				$('#editInfo').toggle();
+			});
+		});
+		//关闭编辑地址窗口
+		$(document).ready(function() {
+			$('#closeEditAddress').click(function() {
+				$('#editAddress').toggle();
+			});
+		});
 		
 		//点击提交修改信息后隐藏窗口
 		$(document).ready(function() {

@@ -5,6 +5,9 @@
 	<title>天天生鲜-购物车</title>
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<script src="js/jquery-2.1.1.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="js/cart.js"></script>
+	
 </head>
 <body>
 	<div class="header_con">
@@ -22,11 +25,14 @@
 
 	<div class="search_bar clearfix">
 		<a href="index.html" class="logo fl"><img src="images/logo.png"></a>
-		<div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;购物车</div>	
+		<div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;购物车</div>
+		<div class="search_con fr">
+			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
+			<input type="button" class="input_btn fr" name="" value="搜索">
+		</div>		
 	</div>
-
-	<div class="total_count">全部商品<em>2</em>件</div>	
-	<ul class="cart_list_th clearfix">
+	
+	<ul class="cart_list_th clearfix" id="cart">
 		<li class="col01">商品名称</li>
 		<li class="col02">商品单位</li>
 		<li class="col03">商品价格</li>
@@ -34,48 +40,83 @@
 		<li class="col05">小计</li>
 		<li class="col06">操作</li>
 	</ul>
-	<ul class="cart_list_td clearfix">
-		<li class="col01"><input type="checkbox" name="" checked></li>
+	<!--<ul class="cart_list_td clearfix">
+		<li class="col01"></li>
 		<li class="col02"><img src="images/goods/goods012.jpg"></li>
 		<li class="col03">奇异果<br><em>25.80元/500g</em></li>
 		<li class="col04">500g</li>
 		<li class="col05">25.80元</li>
 		<li class="col06">
 			<div class="num_add">
-				<a href="javascript:;" class="add fl">+</a>
-				<input type="text" class="num_show fl" value="1">	
-				<a href="javascript:;" class="minus fl">-</a>	
+				<input type="button" value="+" onclick="increase(this);" style="height: 28px;width: 29px;"/>
+       			<input style="text-align: center;" type="text" size="3" readonly class="num_show fl" value="1"/> 
+       			<input type="button" value="-" onclick="decrease(this);" style="height: 28px;width: 29px;"/>
 			</div>
 		</li>
 		<li class="col07">25.80元</li>
-		<li class="col08"><a href="javascript:;">删除</a></li>
+		<li class="col08"><input type="button" value="删除" onclick="drop(this);"/></li>
 	</ul>
 
 	<ul class="cart_list_td clearfix">
-		<li class="col01"><input type="checkbox" name="" checked></li>
+		<li class="col01"></li>
 		<li class="col02"><img src="images/goods/goods003.jpg"></li>
 		<li class="col03">大兴大棚草莓<br><em>16.80元/500g</em></li>
 		<li class="col04">500g</li>
 		<li class="col05">16.80元</li>
 		<li class="col06">
 			<div class="num_add">
-				<a href="javascript:;" class="add fl">+</a>
-				<input type="text" class="num_show fl" value="1">	
-				<a href="javascript:;" class="minus fl">-</a>	
+				<input type="button" value="+" onclick="increase(this);" style="height: 28px;width: 29px;"/>
+       			<input style="text-align: center;" type="text" size="3" readonly class="num_show fl" value="1"/> 
+       			<input type="button" value="-" onclick="decrease(this);" style="height: 28px;width: 29px;"/>
 			</div>
 		</li>
 		<li class="col07">16.80元</li>
-		<li class="col08"><a href="javascript:;">删除</a></li>
-	</ul>
+		<li class="col08"><input type="button" value="删除" onclick="drop(this);"/></li>
+	</ul>-->
 	
 
 	<ul class="settlements">
-		<li class="col01"><input type="checkbox" name="" checked=""></li>
-		<li class="col02">全选</li>
-		<li class="col03">合计(不含运费)：<span>¥</span><em>42.60</em><br>共计<b>2</b>件商品</li>
-		<li class="col04"><a href="place_order.html">去结算</a></li>
+		<li class="col01"></li>
+		<li class="col02"></li>
+		<li class="col03">合计(不含运费)：<span>¥</span><em id="total">42.60</em><br>共计<b id="num">2</b>件商品</li>
+		<li class="col04">
+			<a  href="#" id="settlement" onclick="windup(this)">去结算</a>
+			<!--<input type="button" onclick="windup()" value="去结算"/>-->
+		</li>
 	</ul>
-
+	<!--结算窗口-->
+	<div id="place_order">
+		<ul>
+			<li><input type="button" id="closePlace_order" value="×" /></li>
+			<li>
+				<span>姓名：</span><input id="user_name" disabled="disabled"/>
+			</li>
+			<br/>
+			<li>
+				<span>电话：</span><input id="user_phone" disabled="disabled"/>
+			</li>
+			<br/>
+			<li>
+				<span>收货地址：</span><input id="user_place" disabled="disabled"/>
+			</li>
+			<br/>
+			<li>
+				<span>付款金额：</span><input id="money" disabled="disabled" style="color: red;"/> 
+			</li>
+			<br/>
+			<li>
+				<span>请扫码付款</span><span style="color:green">(支持微信 支付宝)</span>
+			</li>
+			<br/>
+			<li>
+				<!--换成二维码-->
+				<img src="images/adv01.jpg"/>
+			</li>
+		</ul>
+	</div>
+	<!--小窗口弹出后的遮罩层-->
+	<div id="shadow"></div>
+	
 	<div class="footer">
 		<div class="foot_link">
 			<a href="#">关于我们</a>
@@ -89,6 +130,82 @@
 		<p>CopyRight © 2016 北京天天生鲜信息技术有限公司 All Rights Reserved</p>
 		<p>电话：010-****888    京ICP备*******8号</p>
 	</div>
-	
+	<style>
+		/*遮罩层*/
+		#shadow {
+			width: 100%;
+			height: 100%;
+			background-color: #000;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 2;
+			opacity: 0.3;
+			filter: alpha(opacity=30);
+			display: none;
+		}
+		#place_order{
+			display: none;
+			border: 2px solid grey;
+			border-radius: 5px;
+			width: 300px;
+			height: 500px;
+			z-index: 3;
+			background: whitesmoke;
+			position: fixed;
+			top:20%;
+			left:40%;
+		}
+		#place_order span{
+			font-size: 15px;
+		}
+		#place_order img{
+			width: 200px;
+			height: 200px;
+			margin: 10px 0 0 50px;
+		}
+		#user_name,#user_phone,#user_place,#money{
+			border: none;
+			background-color: whitesmoke;
+			font-size: 20px;
+		}
+		#closePlace_order{
+				margin: 1px 0 0 260px;
+				font-size: 40px;
+				width: 40px;
+				position: relative;
+				display: inline-block;
+				background: ghostwhite;
+				border: 1px solid gainsboro;
+				border-radius: 5px;
+				overflow: hidden;
+				color: black;
+		}
+		#closePlace_order:hover{
+			background-color:#C6C6C5;;
+		}
+		
+	</style>
+	<script type="text/javascript">
+		//结算窗口
+			$(document).ready(function() {
+				$('#settlement').click(function() {
+					$('#place_order').toggle();
+					$('#shadow').toggle();
+					//信息和数值需要获取后台数据
+					document.getElementById("user_name").value="杨小凡";
+					document.getElementById("user_phone").value="18540279973";
+					document.getElementById("user_place").value="A2 111";
+					document.getElementById("money").value= "¥42.60";
+				});
+			});
+		//关闭结算窗口
+			$(document).ready(function() {
+				$('#closePlace_order').click(function() {
+					$('#place_order').toggle();
+					$('#shadow').toggle();
+				});
+			});
+	</script>
 </body>
 </html>

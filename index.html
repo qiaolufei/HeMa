@@ -6,9 +6,10 @@
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script src="js/jquery-2.1.1.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" src="js/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="js/slide.js"></script>
-	<script src="js/jquery-2.1.1.js" type="text/javascript" charset="utf-8"></script>
+	
 </head>
 <body onload="init()">
 	<div class="header_con">
@@ -98,13 +99,13 @@
 			<ul class="goods_list fl" id="fruit">
 				<li>
 					<h4><a>草莓</a></h4>
-					<a><img src="images/goods/goods003.jpg"></a>
-					<div class="prize">¥ 30.00</div>
+					<a onclick="add_cart(this)"><img src="images/goods/goods003.jpg"></a>
+					<div class="prize">30.00</div>
 				</li>
 				<li>
 					<h4><a>葡萄</a></h4>
-					<a><img src="images/goods/goods002.jpg"></a>
-					<div class="prize">¥ 5.50</div>
+					<a onclick="add_cart(this)"><img src="images/goods/goods002.jpg"></a>
+					<div class="prize">5.50</div>
 				</li>
 			</ul>
 		</div>
@@ -139,6 +140,8 @@
 		oFruit.onclick = function(){
 			window.location.href = 'list.html';
 		}
+		
+		var curr_username = "";
 			
 		//首页初始化函数
 		function init(){
@@ -155,24 +158,27 @@
                			//添加<li>
                			var li = document.createElement("li");
                			
-               			//添加<h4><a href="#">柠檬</a></h4>
+               			//添加<h4><a>草莓</a></h4>
                			var a = document.createElement("a");
-               			//a.href = "#";
                			a.text = item[i].title;
   
                			var h4 = document.createElement("h4");
                			h4.appendChild(a);
                			
-               			//添加<a href="#"><img src="images/goods/goods012.jpg"></a>
+               			//添加<a onclick="add_cart(this)"><img src="images/goods/goods003.jpg"></a>
                			var a1 = document.createElement("a");
-               			//a1.href = "#";
+               			
+               			//links.setAttribute("onclick", "eval_a_click_event('a')");
+               			a1.setAttribute("onclick","add_cart(this)");
+               			
                			var img = document.createElement("img");
                			img.src = item[i].image;
                			a1.appendChild(img);
                			
-               			//添加<div class="prize">¥ 25.80</div>
+               			//添加<div class="prize">30.00</div>
                			var div = document.createElement("div");
-               			div.innerText = item[i].price;
+               			var tmpPrice = parseFloat(item[i].price / 100.0);
+               			div.innerText = tmpPrice.toFixed(2) ;
                			div.setAttribute("class","prize");
                			
                			li.appendChild(h4);
@@ -196,6 +202,9 @@
 					if(res.data != null){
 						var user=res.data;
 						var len=user.username.length;
+						
+						curr_username = user.username;
+						
 						$('.header_con .header .fr #login_row').hide();
 						$('.header_con .header .fr #link_row #yonghuzhongxin').html(user.username.substring(0,3)+"***"+user.username.substring(len-3,len));
 					}else{
@@ -204,6 +213,58 @@
 					}
 				}
 		  });
+		}
+		
+		function add_cart(btn){
+			var li = btn.parentNode;
+			var a_tag = li.getElementsByTagName("a");
+			var img = li.getElementsByTagName("img");
+			var div = li.getElementsByTagName("div");
+			
+			//alert(curr_username);
+			
+			//传送的数据项
+			var name = a_tag[0].innerText;
+			var img_src = img[0].src;
+			var price= div[0].innerHTML;
+			
+			//判断是否登录
+			if (curr_username === undefined) {
+				alert("请先登录");
+				return;
+			}
+			
+			//封装json对象
+			var Goods = {
+				Goods_name:name,
+				Goods_img:img_src,
+				Goods_price:parseFloat(price)*100,  //将价格转为“分”
+				username:curr_username
+			};
+			var strGoods = JSON.stringify(Goods);
+			
+			//发送请求，添加购物车记录
+			$.ajax({
+				type:"post",
+				url:"http://localhost:8080/cart/addCart",
+				async:true,
+				data:JSON.stringify({
+					'username':Goods.username,
+					'title':Goods.Goods_name,
+					'price':Goods.Goods_price,
+					'image':Goods.Goods_img
+				}),
+				dataType:'json',
+				contentType:"application/json; charset=utf-8",
+				xhrFields:{withCredentials:true},
+				success:function(res){
+					if (res.data.data === 13) {
+						alert("添加商品成功 ！");
+					} else{
+						alert("该商品已在购物车 ！");
+					}
+				}
+			});
 		}
 	
 	</script>
