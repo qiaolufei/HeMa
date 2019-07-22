@@ -16,59 +16,7 @@
                 $("#password").val($.cookie("password"));
             }
         });
-	</script>
-</head>
-<body>
-	<div class="login_top clearfix">
-		<a href="index.html" class="login_logo"><img src="images/logo02.png"></a>	
-	</div>
-
-	<div class="login_form_bg">
-		<div class="login_form_wrap clearfix">
-			<div class="login_banner fl"></div>
-			<div class="slogan fl">日夜兼程 · 急速送达</div>
-			<div class="login_form fr">
-				<div class="login_title clearfix">
-					<h1>用户登录</h1>
-					<a href="register.html">立即注册</a>
-				</div>
-				<div class="form_input">
-					<div>
-						<input type="text" name="username" id="account" class="name_input" placeholder="请输入用户名">
-						<div class="user_error">输入错误</div>
-						<input type="password" name="pwd" id="passwd" class="pass_input" placeholder="请输入密码">
-						<div class="pwd_error">输入错误</div>
-						<div class="more_input clearfix">
-							<input type="checkbox" name="" id="remember">
-							<label>记住用户名</label>
-							<a href="#">忘记密码</a>
-						</div>
-						<input type="button" id="login" value="登录" class="input_submit">
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="footer no-mp">
-		<div class="foot_link">
-			<a href="#">关于我们</a>
-			<span>|</span>
-			<a href="#">联系我们</a>
-			<span>|</span>
-			<a href="#">招聘人才</a>
-			<span>|</span>
-			<a href="#">友情链接</a>		
-		</div>
-		<p>CopyRight © 2016 北京天天生鲜信息技术有限公司 All Rights Reserved</p>
-		<p>电话：010-****888    京ICP备*******8号</p>
-	</div>
-	
-</body>
-
-<script type="text/javascript">
-	
-	//登录
+        //登录
 	$(function(){
 		//按钮事件登录
 		$("#login").click(function(){
@@ -84,7 +32,6 @@
 		    contentType:"application/json; charset=utf-8",
 			xhrFields:{withCredentials:true},
 	       	success: function(res) {
-	       		
 	       		//处理服务端返回的数据
 	       		/*
 	       		 * @数据格式： res = {"status":200,"msg":"OK","data":11}
@@ -102,7 +49,6 @@
 	       			default:
 	       				//登录验证
 	               		if ( res.data.id){
-	               			
 	               			//登录成功
 	                    	location.href="index.html";
 						 }
@@ -140,8 +86,54 @@
             $.cookie("password","",{ expires:-1 });
         }
     };
+	</script>
+</head>
+<body>
+	<div class="login_top clearfix">
+		<a href="index.html" class="login_logo"><img src="images/logo02.png"></a>	
+	</div>
+
+	<div class="login_form_bg">
+		<div class="login_form_wrap clearfix">
+			<div class="login_banner fl"></div>
+			<div class="slogan fl">喝吗鲜生 · 鲜到鲜得</div>
+			<div class="login_form fr">
+				<div class="login_title clearfix">
+					<h1>用户登录</h1>
+					<a href="register.html">立即注册</a>
+				</div>
+				<div class="form_input">
+					<div>
+						<input type="text" name="username" id="account" class="name_input" placeholder="请输入用户名">
+						<div class="user_error">输入错误</div>
+						<input type="password" name="pwd" id="passwd" class="pass_input" placeholder="请输入密码">
+						<div class="pwd_error">输入错误</div>
+						<div class="more_input clearfix">
+							<input type="checkbox" name="" id="remember">
+							<label>记住用户名</label>
+							<a href="#">忘记密码</a>
+						</div>
+						<input type="button" id="login" value="登录" class="input_submit">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="footer no-mp">
+		<div class="foot_link">
+			<a href="#">关于我们</a>
+			<span>|</span>
+			<a href="#">联系我们</a>
+			<span>|</span>
+			<a href="#">招聘人才</a>
+			<span>|</span>
+			<a href="#">友情链接</a>		
+		</div>
+		<p>CopyRight © 2019 沈工大北极星工作室 All Rights Reserved</p>
+		<p>电话：010-****888    京ICP备*******8号</p>
+	</div>
 	
-	
-</script>
+</body>
 
 </html>

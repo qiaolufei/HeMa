@@ -18,18 +18,30 @@
 					<a href="index.html">首页</a>
 					<span>|</span>
 					<a href="user_center_info.html">用户中心</a>
+					<span>|</span>
+					<a id="logout">注销</a>
+					<!--注销窗口-->
+					<div id="logout_window" style="display: none; margin:auto;top: 25%;left: 45%; width: 300px; height: 250px; background-color: rgba(0,0,0,0.5);z-index: 2;position: fixed;border:1px solid #e0e0e0; border-radius: 8px;">
+						<ul style="margin: 10px;">
+							<li style="text-align: center;"><span style="font-size: 14px;color: #fff;margin-top: 30px;">北极星工作室提醒您</span></li>
+							<br/>
+							<li style="text-align: center;margin-top: 10px;"><span style="font-size: 20px;color: #fff;margin-top: 30px;">是否注销</span></li>
+							<br/>
+							<li style="text-align: center;font-size: 14px;margin-top: 10px;">
+								<input type="button" class="submit1" id="logout_yes" value="确认" style="width: 60px;height: 28px;background: #000000;opacity:0.5;border: 0px;outline: none;color: #fff;margin-right: 10px;"/>
+								<input type="button" class="submit1" id="logout_cancel" value="取消" style="width: 60px;height: 28px;background: #000000;opacity:0.5;border: 0px;outline: none;color: #fff;margin-left: 10px;"/>
+							</li>
+							
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>		
 	</div>
 
 	<div class="search_bar clearfix">
-		<a href="index.html" class="logo fl"><img src="images/logo.png"></a>
+		<a href="index.html" class="logo fl"><img src="images/logo.jpg"></a>
 		<div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;购物车</div>
-		<!--<div class="search_con fr">
-			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
-			<input type="button" class="input_btn fr" name="" value="搜索">
-		</div>-->		
 	</div>
 
 	<ul class="cart_list_th clearfix" id="cart">
@@ -40,41 +52,7 @@
 		<li class="col05">小计</li>
 		<li class="col06">操作</li>
 	</ul>
-	<!--<ul class="cart_list_td clearfix">
-		<li class="col01"></li>
-		<li class="col02"><img src="images/goods/goods012.jpg"></li>
-		<li class="col03">奇异果<br><em>25.80元/500g</em></li>
-		<li class="col04">500g</li>
-		<li class="col05">25.80元</li>
-		<li class="col06">
-			<div class="num_add">
-				<input type="button" value="+" onclick="increase(this);" style="height: 28px;width: 29px;"/>
-       			<input style="text-align: center;" type="text" size="3" readonly class="num_show fl" value="1"/> 
-       			<input type="button" value="-" onclick="decrease(this);" style="height: 28px;width: 29px;"/>
-			</div>
-		</li>
-		<li class="col07">25.80元</li>
-		<li class="col08"><input type="button" value="删除" onclick="drop(this);"/></li>
-	</ul>
-
-	<ul class="cart_list_td clearfix">
-		<li class="col01"></li>
-		<li class="col02"><img src="images/goods/goods003.jpg"></li>
-		<li class="col03">大兴大棚草莓<br><em>16.80元/500g</em></li>
-		<li class="col04">500g</li>
-		<li class="col05">16.80元</li>
-		<li class="col06">
-			<div class="num_add">
-				<input type="button" value="+" onclick="increase(this);" style="height: 28px;width: 29px;"/>
-       			<input style="text-align: center;" type="text" size="3" readonly class="num_show fl" value="1"/> 
-       			<input type="button" value="-" onclick="decrease(this);" style="height: 28px;width: 29px;"/>
-			</div>
-		</li>
-		<li class="col07">16.80元</li>
-		<li class="col08"><input type="button" value="删除" onclick="drop(this);"/></li>
-	</ul>-->
 	
-
 	<ul class="settlements">
 		<li class="col01"></li>
 		<li class="col02"></li>
@@ -118,6 +96,7 @@
 			<li style="text-align: center;margin-top: 10px;"><span style="font-size: 12px;">CopyRight © 2019 沈工大北极星工作室</span></li>
 		</ul>
 	</div>
+	
 	<!--小窗口弹出后的遮罩层-->
 	<div id="shadow"></div>
 	
@@ -131,9 +110,10 @@
 			<span>|</span>
 			<a href="#">友情链接</a>		
 		</div>
-		<p>CopyRight © 2016 北京天天生鲜信息技术有限公司 All Rights Reserved</p>
+		<p>CopyRight © 2019 沈工大北极星工作室 All Rights Reserved</p>
 		<p>电话：010-****888    京ICP备*******8号</p>
 	</div>
+	
 	<style>
 		/*遮罩层*/
 		#shadow {
@@ -148,6 +128,7 @@
 			filter: alpha(opacity=30);
 			display: none;
 		}
+		
 		#place_order{
 			display: none;
 			border:1px solid #e0e0e0;
@@ -189,7 +170,44 @@
 		
 	</style>
 	<script type="text/javascript">
+		//注销窗口
+		$(document).ready(function() {
+			$('#logout').click(function() {
+				$('#logout_window').toggle();
+			});
+		});
 		
+		//确认注销
+		$(document).ready(function(){
+			$('#logout_yes').click(function(){
+				$.ajax({
+					type:"get",
+					url:"http://localhost:8080/logOut",
+					dataType:'json',
+					async:true,
+					xhrFields: {
+						withCredentials: true
+					},
+					rossDomain: true,
+					success:function(res){
+						if(res.status === 200){
+							alert("注销成功");
+							location.href = "index.html";
+						}else{
+							alert("注销失败");
+						}
+					}
+			    });
+			    $('#logout_window').toggle();
+			});
+		});
+		
+		//取消注销
+		$(document).ready(function(){
+			$('#logout_cancel').click(function(){
+			    $('#logout_window').toggle();
+			});
+		});
 	</script>
 </body>
 </html>

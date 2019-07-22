@@ -1,266 +1,353 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-<head>
-	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-	<title>喝吗鲜生-首页</title>
-	<link rel="stylesheet" type="text/css" href="css/reset.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css">
-	<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
-	<script src="js/jquery-2.1.1.js" type="text/javascript" charset="utf-8"></script>
-	<script type="text/javascript" src="js/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="js/slide.js"></script>
-	
-</head>
-<body onload="init()">
-	<div class="header_con">
-		<div class="header">
-			<div class="welcome fl">欢迎来到喝吗鲜生!</div>
-			<div class="fr">
-				<div class="login_btn fl" id="login_row">
-					<a href="login.html">登录</a>
-					<span>|</span>
-					<a href="register.html">注册</a>
-					<span id="fenge">|</span>
-				</div>
-				<div class="user_link fl" id="link_row">
-					<a id="yonghuzhongxin"></a>
-					<span>|</span>
-					<a href="user_center_info.html">用户中心</a>
-					<span>|</span>
-					<a href="cart.html">我的购物车</a>
-				</div>
-			</div>
-		</div>		
-	</div>
 
-	<div class="search_bar clearfix">
-		<a href="index.html" class="logo fl"><img src="images/logo.jpg"></a>
-		<div class="search_con fl">
-			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
-			<input type="button" class="input_btn fr" name="" value="搜索">
-		</div>
-	</div>
-
-	<div class="navbar_con">
-		<div class="navbar">
-			<h1 class="fl">全部商品分类</h1>
-			<ul class="navlist fl">
-				<li><a href="">首页</a></li>
-				<li class="interval">|</li>
-				<li><a href="">DIY水果捞</a></li>
-			</ul>
-		</div>
-	</div>
-
-	<div class="center_con clearfix">
-		<ul class="subnav fl">
-			<li><a href="#model01" class="fruit">新鲜水果</a></li>
-			<!--<li><a href="#model02" class="seafood">海鲜水产</a></li>
-			<li><a href="#model03" class="meet">猪牛羊肉</a></li>
-			<li><a href="#model04" class="egg">禽类蛋品</a></li>
-			<li><a href="#model05" class="vegetables">新鲜蔬菜</a></li>
-			<li><a href="#model06" class="ice">速冻食品</a></li>-->
-		</ul>
-		<div class="slide fl">
-			<ul class="slide_pics">
-				<li><img src="images/slide.jpg" alt="幻灯片"></li>
-				<li><img src="images/slide02.jpg" alt="幻灯片"></li>
-			</ul>
-			<div class="prev"></div>
-			<div class="next"></div>
-			<ul class="points"></ul>
-		</div>
-		<div class="adv fl">
-			<a href="#"><img src="images/adv01.jpg"></a>
-			<a href="#"><img src="images/adv02.jpg"></a>
-		</div>
-	</div>
-
-	<div class="list_model">
-		<div class="list_title clearfix">
-			<h3 class="fl" id="model01">新鲜水果</h3>
-			<div class="subtitle fl">
-				<span>|</span>
-				<a href="#">鲜芒</a>
-				<a href="#">加州提子</a>
-				<a href="#">亚马逊牛油果</a>
-			</div>
-			<a href="#" class="goods_more fr" id="fruit_more">查看更多 ></a>
-		</div>
-
-		<div class="goods_con clearfix">
-			<div class="goods_banner fl"><img src="images/banner01.jpg"></div>
-			<ul class="goods_list fl" id="fruit">
-				<!--<li>
-					<h4><a>草莓</a></h4>
-					<a onclick="add_cart(this)"><img src="images/goods/goods003.jpg"></a>
-					<div class="prize">30.00</div>
-				</li>
-				<li>
-					<h4><a>葡萄</a></h4>
-					<a onclick="add_cart(this)"><img src="images/goods/goods002.jpg"></a>
-					<div class="prize">5.50</div>
-				</li>-->
-			</ul>
-		</div>
-	</div>
-
-	<div class="footer">
-		<div class="foot_link">
-			<a href="#">关于我们</a>
-			<span>|</span>
-			<a href="#">联系我们</a>
-			<span>|</span>
-			<a href="#">招聘人才</a>
-			<span>|</span>
-			<a href="#">友情链接</a>		
-		</div>
-		<p>CopyRight © 2019 沈工大鲜生信息技术有限公司 All Rights Reserved</p>
-		<p>电话：010-****888    京ICP备*******8号</p>
-	</div>
-	<!--<script type="text/javascript" src="js/slideshow.js"></script>-->
-	<script type="text/javascript">
-		BCSlideshow('focuspic');
-		var oFruit = document.getElementById('fruit_more');
-		var oShownum = document.getElementById('show_count');
-
-		var hasorder = localStorage.getItem('order_finish');
-
-		if(hasorder)
-		{
-			oShownum.innerHTML = '2';
-		}
-
-		oFruit.onclick = function(){
-			window.location.href = 'list.html';
-		}
-		
-		var curr_username = "";
-			
-		//首页初始化函数
-		function init(){
-			$.ajax({
-                type: "POST",
-                url: "http://localhost:8080/item",
-				async: true,
-				xhrFields:{withCredentials:true},
-               	success: function(res) {
-               		var item = res.data;
-               		for (var i = 0; i < item.length; i++) {
-               			var ul = document.getElementById("fruit");
-               			
-               			//添加<li>
-               			var li = document.createElement("li");
-               			
-               			//添加<h4><a>草莓</a></h4>
-               			var a = document.createElement("a");
-               			a.text = item[i].title;
-  
-               			var h4 = document.createElement("h4");
-               			h4.appendChild(a);
-               			
-               			//添加<a onclick="add_cart(this)"><img src="images/goods/goods003.jpg"></a>
-               			var a1 = document.createElement("a");
-               			
-               			//links.setAttribute("onclick", "eval_a_click_event('a')");
-               			a1.setAttribute("onclick","add_cart(this)");
-               			
-               			var img = document.createElement("img");
-               			img.src = item[i].image;
-               			a1.appendChild(img);
-               			
-               			//添加<div class="prize">30.00</div>
-               			var div = document.createElement("div");
-               			var tmpPrice = parseFloat(item[i].price / 100.0);
-               			div.innerText = tmpPrice.toFixed(2) ;
-               			div.setAttribute("class","prize");
-               			
-               			li.appendChild(h4);
-               			li.appendChild(a1);
-               			li.appendChild(div);
-               			ul.appendChild(li);
-               		}
-                },
-           });
-		
-			$.ajax({
-				type:"get",
-				url:"http://localhost:8080/currUser",
-				dataType:'json',
-				async:true,
-				xhrFields: {
-					withCredentials: true
-				},
-				rossDomain: true,
-				success:function(res){
-					if(res.data != null){
-						var user=res.data;
-						var len=user.username.length;
-						
-						curr_username = user.username;
-						
-						$('.header_con .header .fr #login_row').hide();
-						$('.header_con .header .fr #link_row #yonghuzhongxin').html(user.username.substring(0,3)+"***"+user.username.substring(len-3,len));
-					}else{
-						$('.header_con .header .fr #link_row').hide();
-						$('.header_con .header .fr #login_row #fenge').hide();
-					}
-				}
-		  });
-		}
-		
-		function add_cart(btn){
-			var li = btn.parentNode;
-			var a_tag = li.getElementsByTagName("a");
-			var img = li.getElementsByTagName("img");
-			var div = li.getElementsByTagName("div");
-			
-			//alert(curr_username);
-			
-			//传送的数据项
-			var name = a_tag[0].innerText;
-			var img_src = img[0].src;
-			var price= div[0].innerHTML;
-			
-			//判断是否登录
-			if (curr_username === undefined) {
-				alert("请先登录");
-				return;
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+		<title>喝吗鲜生-首页</title>
+		<link rel="stylesheet" type="text/css" href="css/reset.css">
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+		<script src="js/jquery-2.1.1.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="js/slide.js"></script>
+		<script type="text/javascript">
+			BCSlideshow('focuspic');
+			var oFruit = document.getElementById('fruit_more');
+			var oShownum = document.getElementById('show_count');
+			var hasorder = localStorage.getItem('order_finish');
+			if(hasorder) {
+				oShownum.innerHTML = '2';
 			}
-			
-			//封装json对象
-			var Goods = {
-				Goods_name:name,
-				Goods_img:img_src,
-				Goods_price:parseFloat(price)*100,  //将价格转为“分”
-				username:curr_username
-			};
-			var strGoods = JSON.stringify(Goods);
-			
-			//发送请求，添加购物车记录
-			$.ajax({
-				type:"post",
-				url:"http://localhost:8080/cart/addCart",
-				async:true,
-				data:JSON.stringify({
-					'username':Goods.username,
-					'title':Goods.Goods_name,
-					'price':Goods.Goods_price,
-					'image':Goods.Goods_img
-				}),
-				dataType:'json',
-				contentType:"application/json; charset=utf-8",
-				xhrFields:{withCredentials:true},
-				success:function(res){
-					if (res.data.data === 13) {
-						alert("添加商品成功 ！");
-					} else{
-						alert("该商品已在购物车 ！");
+			oFruit.onclick = function() {
+				window.location.href = 'list.html';
+			}
+			var curr_username = "";
+
+			//首页初始化函数
+			function init() {
+				$.ajax({
+					type: "POST",
+					url: "http://47.94.198.96:8080/item",
+					async: true,
+					xhrFields: {
+						withCredentials: true
+					},
+					success: function(res) {
+						var item = res.data;
+						for(var i = 0; i < item.length; i++) {
+							var ul = document.getElementById("fruit");
+							//添加<li>
+							var li = document.createElement("li");
+							//添加<h4><a>草莓</a></h4>
+							var a = document.createElement("a");
+							a.text = item[i].title;
+							var h4 = document.createElement("h4");
+							h4.appendChild(a);
+							//添加<a onclick="add_cart(this)"><img src="images/goods/goods003.jpg"></a>
+							var a1 = document.createElement("a");
+							//links.setAttribute("onclick", "eval_a_click_event('a')");
+							a1.setAttribute("onclick", "add_cart(this)");
+							a1.title = "点击加入购物车";
+							var img = document.createElement("img");
+							img.src = item[i].image;
+							a1.appendChild(img);
+
+							//添加<div class="prize">30.00</div>
+							var div = document.createElement("div");
+							var tmpPrice = parseFloat(item[i].price / 100.0);
+							div.innerText = tmpPrice.toFixed(2);
+							div.setAttribute("class", "prize");
+							li.appendChild(h4);
+							li.appendChild(a1);
+							li.appendChild(div);
+							ul.appendChild(li);
+						}
+					},
+				});
+
+				$.ajax({
+					type: "get",
+					url: "http://47.94.198.96:8080/currUser",
+					dataType: 'json',
+					async: true,
+					xhrFields: {
+						withCredentials: true
+					},
+					rossDomain: true,
+					success: function(res) {
+						if(res.data != null) {
+							var user = res.data;
+							var len = user.username.length;
+							curr_username = user.username;
+							$('.header_con .header .fr #login_row').hide();
+							$('.header_con .header .fr #link_row #yonghuzhongxin').html(user.username.substring(0, 3) + "***" + user.username.substring(len - 3, len));
+						} else {
+							$('.header_con .header .fr #link_row').hide();
+							$('.header_con .header .fr #login_row #fenge').hide();
+						}
 					}
+				});
+			}
+
+			function add_cart(btn) {
+				var li = btn.parentNode;
+				var a_tag = li.getElementsByTagName("a");
+				var img = li.getElementsByTagName("img");
+				var div = li.getElementsByTagName("div");
+
+				//传送的数据项
+				var name = a_tag[0].innerText;
+				var img_src = img[0].src;
+				var price = div[0].innerHTML;
+
+				//判断是否登录
+				//alert(curr_username);
+				if(curr_username === undefined) {
+					alert("请先登录");
+					return;
 				}
-			});
-		}
-	
-	</script>
-</body>
+
+				//封装json对象
+				var Goods = {
+					Goods_name: name,
+					Goods_img: img_src,
+					Goods_price: parseFloat(price) * 100, //将价格转为“分”
+					username: curr_username
+				};
+				var strGoods = JSON.stringify(Goods);
+				//发送请求，添加购物车记录
+				$.ajax({
+					type: "post",
+					url: "http://47.94.198.96:8080/cart/addCart",
+					async: true,
+					data: JSON.stringify({
+						'username': Goods.username,
+						'title': Goods.Goods_name,
+						'price': Goods.Goods_price,
+						'image': Goods.Goods_img
+					}),
+					dataType: 'json',
+					contentType: "application/json; charset=utf-8",
+					xhrFields: {
+						withCredentials: true
+					},
+					success: function(res) {
+						if(res.data.data === 13) {
+							alert("添加商品成功 ！");
+						} else {
+							alert("该商品已在购物车 ！");
+						}
+					}
+				});
+			}
+		</script>
+	</head>
+
+	<body onload="init()">
+		<div class="header_con">
+			<div class="header">
+				<div class="welcome fl">欢迎来到喝吗鲜生!</div>
+
+				<div class="fr">
+
+					<div class="login_btn fl" id="login_row">
+
+						<a href="login.html">登录</a>
+
+						<span>|</span>
+
+						<a href="register.html">注册</a>
+
+						<span id="fenge">|</span>
+
+					</div>
+
+					<div class="user_link fl" id="link_row">
+
+						<a id="yonghuzhongxin"></a>
+
+						<span>|</span>
+
+						<a href="user_center_info.html">用户中心</a>
+
+						<span>|</span>
+
+						<a href="cart.html">我的购物车</a>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="search_bar clearfix">
+
+			<a href="index.html" class="logo fl"><img src="images/logo.jpg"></a>
+
+			<div class="search_con fl">
+
+				<input type="text" class="input_text fl" name="" placeholder="搜索商品">
+
+				<input type="button" class="input_btn fr" name="" value="搜索">
+
+			</div>
+
+		</div>
+
+		<div class="navbar_con">
+
+			<div class="navbar">
+
+				<h1 class="fl">全部商品分类</h1>
+
+				<ul class="navlist fl">
+
+					<li>
+						<a href="">首页</a>
+					</li>
+
+					<li class="interval">|</li>
+
+					<li>
+						<a href="">DIY水果捞</a>
+					</li>
+
+				</ul>
+
+			</div>
+
+		</div>
+
+		<div class="center_con clearfix">
+
+			<ul class="subnav fl">
+
+				<li>
+					<a href="#model01" class="fruit">新鲜水果</a>
+				</li>
+
+				<!--<li><a href="#model02" class="seafood">海鲜水产</a></li>
+
+			<li><a href="#model03" class="meet">猪牛羊肉</a></li>
+
+			<li><a href="#model04" class="egg">禽类蛋品</a></li>
+
+			<li><a href="#model05" class="vegetables">新鲜蔬菜</a></li>
+
+			<li><a href="#model06" class="ice">速冻食品</a></li>-->
+
+			</ul>
+
+			<div class="slide fl">
+
+				<ul class="slide_pics">
+
+					<li><img src="images/slide.jpg" alt="幻灯片"></li>
+
+					<li><img src="images/slide02.jpg" alt="幻灯片"></li>
+
+				</ul>
+
+				<div class="prev"></div>
+
+				<div class="next"></div>
+
+				<ul class="points"></ul>
+
+			</div>
+
+			<div class="adv fl">
+
+				<a href="#"><img src="images/adv01.jpg"></a>
+
+				<a href="#"><img src="images/adv02.jpg"></a>
+
+			</div>
+
+		</div>
+
+		<div class="list_model">
+
+			<div class="list_title clearfix">
+
+				<h3 class="fl" id="model01">新鲜水果</h3>
+
+				<div class="subtitle fl">
+
+					<span>|</span>
+
+					<a href="#">鲜芒</a>
+
+					<a href="#">加州提子</a>
+
+					<a href="#">亚马逊牛油果</a>
+
+				</div>
+
+				<a href="#" class="goods_more fr" id="fruit_more">查看更多 ></a>
+
+			</div>
+
+			<div class="goods_con clearfix">
+
+				<div class="goods_banner fl"><img src="images/banner01.jpg"></div>
+
+				<ul class="goods_list fl" id="fruit">
+
+					<!--<li>
+
+					<h4><a>草莓</a></h4>
+
+					<a onclick="add_cart(this)"><img src="images/goods/goods003.jpg"></a>
+
+					<div class="prize">30.00</div>
+
+				</li>
+
+				<li>
+
+					<h4><a>葡萄</a></h4>
+
+					<a onclick="add_cart(this)"><img src="images/goods/goods002.jpg"></a>
+
+					<div class="prize">5.50</div>
+
+				</li>-->
+
+				</ul>
+
+			</div>
+
+		</div>
+
+		<div class="footer">
+
+			<div class="foot_link">
+
+				<a href="#">关于我们</a>
+
+				<span>|</span>
+
+				<a href="#">联系我们</a>
+
+				<span>|</span>
+
+				<a href="#">招聘人才</a>
+
+				<span>|</span>
+
+				<a href="#">友情链接</a>
+
+			</div>
+
+			<p>CopyRight © 2019 沈工大北极星工作室 All Rights Reserved</p>
+
+			<p>电话：010-****888 京ICP备*******8号</p>
+
+		</div>
+
+	</body>
+
 </html>

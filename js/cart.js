@@ -34,6 +34,7 @@ window.onload = function(){
 					
 							if(cart_item.length === 0){
 								alert("购物车空空如也 ！");
+								return;
 							}
 							for (var i = 0; i < cart_item.length ; i++) {
 								var newul = document.createElement("div");

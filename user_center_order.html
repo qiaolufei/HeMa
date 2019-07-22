@@ -5,6 +5,7 @@
 	<title>喝吗鲜生-用户中心</title>
 	<link rel="stylesheet" type="text/css" href="css/reset.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<script src="js/jquery-2.1.1.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
 	<div class="header_con">
@@ -15,13 +16,29 @@
 					<a href="index.html">首页</a>
 					<span>|</span>
 					<a href="cart.html">我的购物车</a>
+					<span>|</span>
+					<a id="logout">注销</a>
+					<!--注销窗口-->
+					<div id="logout_window" style="display: none; margin:auto;top: 25%;left: 45%; width: 300px; height: 250px; background-color: rgba(0,0,0,0.5);z-index: 2;position: fixed;border:1px solid #e0e0e0; border-radius: 8px;">
+						<ul style="margin: 10px;">
+							<li style="text-align: center;"><span style="font-size: 14px;color: #fff;margin-top: 30px;">北极星工作室提醒您</span></li>
+							<br/>
+							<li style="text-align: center;margin-top: 10px;"><span style="font-size: 20px;color: #fff;margin-top: 30px;">是否注销</span></li>
+							<br/>
+							<li style="text-align: center;font-size: 14px;margin-top: 10px;">
+								<input type="button" class="submit1" id="logout_yes" value="确认" style="width: 60px;height: 28px;background: #000000;opacity:0.5;border: 0px;outline: none;color: #fff;margin-right: 10px;"/>
+								<input type="button" class="submit1" id="logout_cancel" value="取消" style="width: 60px;height: 28px;background: #000000;opacity:0.5;border: 0px;outline: none;color: #fff;margin-left: 10px;"/>
+							</li>
+							
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>		
 	</div>
 
 	<div class="search_bar clearfix">
-		<a href="index.html" class="logo fl"><img src="images/logo.png"></a>
+		<a href="index.html" class="logo fl"><img src="images/logo.jpg"></a>
 		<div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;用户中心</div>	
 	</div>
 
@@ -36,41 +53,18 @@
 		<div class="right_content clearfix">
 				<h3 class="common_title2">全部订单</h3>
 				<ul class="order_list_th w978 clearfix">
-					<li class="col01">2016-8-21 17:36:24</li>
-					<li class="col02">订单号：56872934</li>
-					<li class="col02 stress">未支付</li>		
+					<!--<li class="col01"><a id="order_time">2016-8-21 17:36:24</a></li>-->
+					<li class="col02 stress" style="text-align: center;">已支付</li>			
 				</ul>
-
-				<table class="order_list_table w980">
-					<tbody>
-						<tr>
-							<td width="55%">
-								<ul class="order_goods_list clearfix">					
-									<li class="col01"><img src="images/goods02.jpg"></li>
-									<li class="col02">嘎啦苹果嘎啦苹果<em>11.80元/500g</em></li>	
-									<li class="col03">1</li>
-									<li class="col04">11.80元</li>	
-								</ul>
-								<ul class="order_goods_list clearfix">					
-									<li class="col01"><img src="images/goods02.jpg"></li>
-									<li class="col02">嘎啦苹果嘎啦苹果<em>11.80元/500g</em></li>	
-									<li class="col03">1</li>
-									<li class="col04">11.80元</li>	
-								</ul>
-							</td>
-							<td width="15%">33.60元</td>
-							<td width="15%">待付款</td>
-							<td width="15%"><a href="#" class="oper_btn">去付款</a></td>
-						</tr>
-					</tbody>
-				</table>
-				
-				<ul class="order_list_th w978 clearfix">
-					<li class="col01">2016-8-21 17:36:24</li>
-					<li class="col02">订单号：56872934</li>
-					<li class="col02 stress">已支付</li>			
-				</ul>
-				<table class="order_list_table w980">
+				<div id="all_order">
+					<ul class="cart_list_th w978 clearfix">
+						<li class="col01">商品名称</li>
+						<li class="col02">商品单位</li>
+						<li class="col03">商品价格</li>
+						<li class="col04">数量</li>
+					</ul>
+				</div>
+				<!--<table class="order_list_table w980">
 					<tbody>
 						<tr>
 							<td width="55%">
@@ -92,9 +86,9 @@
 							<td width="15%"><a href="#" class="oper_btn">查看物流</a></td>
 						</tr>
 					</tbody>
-				</table>
+				</table>-->
 
-				<div class="pagenation">
+				<!--<div class="pagenation">
 					<a href="#"><上一页</a>
 					<a href="#" class="active">1</a>
 					<a href="#">2</a>
@@ -102,7 +96,7 @@
 					<a href="#">4</a>
 					<a href="#">5</a>
 					<a href="#">下一页></a>
-				</div>
+				</div>-->
 		</div>
 	</div>
 
@@ -118,9 +112,133 @@
 			<span>|</span>
 			<a href="#">友情链接</a>		
 		</div>
-		<p>CopyRight © 2016 北京天天生鲜信息技术有限公司 All Rights Reserved</p>
+		<p>CopyRight © 2019 沈工大北极星工作室  All Rights Reserved</p>
 		<p>电话：010-****888    京ICP备*******8号</p>
 	</div>
+	
+	<script type="text/javascript">
+		
+		//注销窗口
+		$(document).ready(function() {
+			$('#logout').click(function() {
+				//$(this).setAttribute("class","active");
+				$('#logout_window').toggle();
+			});
+		});
+		
+		//确认注销
+		$(document).ready(function(){
+			$('#logout_yes').click(function(){
+				$.ajax({
+					type:"get",
+					url:"http://localhost:8080/logOut",
+					dataType:'json',
+					async:true,
+					xhrFields: {
+						withCredentials: true
+					},
+					rossDomain: true,
+					success:function(res){
+						if(res.status === 200){
+							alert("注销成功");
+							location.href = "index.html";
+						}else{
+							alert("注销失败");
+						}
+					}
+			    });
+			    $('#logout_window').toggle();
+			});
+		});
+		
+		//取消注销
+		$(document).ready(function(){
+			$('#logout_cancel').click(function(){
+			    $('#logout_window').toggle();
+			});
+		});
+		
+		
+		/*//时间戳解析
+		function getLocalTime(nS) { 
+			return new Date(parseInt(nS) * 1000).toLocaleString().replace(/:\d{1,2}$/,' '); 
+		} 
+		//getLocalTime(1489390119);*/
+			
+		//当前用户
+		var user;
+		
+		window.onload = function(){
+			
+			//取出当前用户
+			$.ajax({
+				type:"get",
+				url:"http://localhost:8080/currUser",
+				dataType:'json',
+				async:true,
+				xhrFields: {
+					withCredentials: true
+				},
+				rossDomain: true,
+				success:function(res){
+					if(res.data != null){
+						user=res.data;
+						//发送请求，取出购物车记录
+						$.ajax({
+							type:"post",
+							url:"http://localhost:8080/cart/showCart/"+user.username,
+							async:true,
+							xhrFields:{withCredentials:true},
+							success:function(res){
+								if (res.data === 14) {
+									alert("获取订单记录失败 ！");
+								} else{
+									//获取订单记录成功
+									var cart_item = res.data.data;
+									var count = 0;
+							
+									if(cart_item.length === 0){
+										alert("订单空空如也 ！");
+										return;
+									}
+									for (var i = 0; i < cart_item.length ; i++) {
+										if (cart_item[i].status == 0) {
+											count++;
+										}else{
+											var newul = document.createElement("div");
+										    newul.innerHTML = '<ul class="cart_list_td clearfix w978">'+
+												'<li class="col01"></li>'+
+												'<li class="col02"><img src="" class="item_img"></li>'+
+												'<li class="col03"><a>'+ cart_item[i].title +'</a><br><em>'+ cart_item[i].price/100.0 +'元/500g</em></li>'+
+												'<li class="col04">500g</li>'+
+												'<li class="col05">'+ cart_item[i].price/100.0 +'元</li>'+
+												'<li class="col07">'+ cart_item[i].num+'</li>'+
+											'</ul>';	
+											var ul = document.getElementById("all_order");
+											ul.append(newul);
+											//修改图片地址
+											var img = document.getElementsByClassName("item_img");
+											img[i].setAttribute("src",cart_item[i].image);
+										}
+											
+									}
+									if (count === cart_item.length) { 
+										$('#all_order').hide();
+										alert("订单空空如也 ！");
+										return;
+									}
+								}
+							}
+						});
+					}else{
+						alert("获取数据异常");
+						return;
+					}
+				}
+			 });	
+		}
+		
+	</script>
 	
 </body>
 </html>

@@ -16,13 +16,29 @@
 					<a href="index.html">首页</a>
 					<span>|</span>
 					<a href="cart.html">我的购物车</a>
+					<span>|</span>
+					<a id="logout">注销</a>
+					<!--注销窗口-->
+					<div id="logout_window" style="display: none; margin:auto;top: 25%;left: 45%; width: 300px; height: 250px; background-color: rgba(0,0,0,0.5);z-index: 2;position: fixed;border:1px solid #e0e0e0; border-radius: 8px;">
+						<ul style="margin: 10px;">
+							<li style="text-align: center;"><span style="font-size: 14px;color: #fff;margin-top: 30px;">北极星工作室提醒您</span></li>
+							<br/>
+							<li style="text-align: center;margin-top: 10px;"><span style="font-size: 20px;color: #fff;margin-top: 30px;">是否注销</span></li>
+							<br/>
+							<li style="text-align: center;font-size: 14px;margin-top: 10px;">
+								<input type="button" class="submit1" id="logout_yes" value="确认" style="width: 60px;height: 28px;background: #000000;opacity:0.5;border: 0px;outline: none;color: #fff;margin-right: 10px;"/>
+								<input type="button" class="submit1" id="logout_cancel" value="取消" style="width: 60px;height: 28px;background: #000000;opacity:0.5;border: 0px;outline: none;color: #fff;margin-left: 10px;"/>
+							</li>
+							
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>		
 	</div>
 
 	<div class="search_bar clearfix">
-		<a href="index.html" class="logo fl"><img src="images/logo.png"></a>
+		<a href="index.html" class="logo fl"><img src="images/logo.jpg"></a>
 		<div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;用户中心</div>
 	</div>
 
@@ -32,18 +48,6 @@
 			<ul>
 				<li><a href="user_center_info.html" class="active">· 个人信息</a></li>
 				<li><a href="user_center_order.html">· 全部订单</a></li>
-				<li><a id="logout">· 退出登录</a></li>
-				<!--注销窗口-->
-				<div id="logout_window" style="display: none; margin:auto;top: 25%;left: 45%; width: 300px; height: 250px; background-color: white;z-index: 2;position: fixed;border:1px solid #e0e0e0; border-radius: 8px;">
-					<ul style="margin: 10px;">
-						<li><span style="font-size: 14px;">北极星工作室提醒您，是否注销</span></li>
-						<li style="text-align: center;font-size: 14px;">
-							<input type="button" class="submit1" id="logout_yes" value="确认" style="width: 80px;height: 20px;background: white;border: 0px;outline: none;"/>
-							<input type="button" class="submit1" id="logout_cancel" value="取消" style="width: 80px;height: 20px;background: white;border: 0px;outline: none;"/>
-						</li>
-						
-					</ul>
-				</div>
 			</ul>
 		</div>
 		<div class="right_content clearfix">
@@ -104,7 +108,7 @@
 			<span>|</span>
 			<a href="#">友情链接</a>		
 		</div>
-		<p>CopyRight © 2016 北京天天生鲜信息技术有限公司 All Rights Reserved</p>
+		<p>CopyRight © 2019 沈工大北极星工作室 All Rights Reserved</p>
 		<p>电话：010-****888    京ICP备*******8号</p>
 	</div>
 	
